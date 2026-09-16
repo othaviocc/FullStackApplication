@@ -10,7 +10,7 @@ O sistema permite consultar registros de servidores públicos federais por **nom
 
 | Integrante | Função |
 |---|---|
-| [Othavio Christmann Correa] | Desenvolvedor(a) |
+| [Othavio Christmann Correa] | Líder Técnico |
 | [Matheus Nunes Buttow] | Desenvolvedor(a) |
 | [Theo Corvello Soares] | Desenvolvedor(a) | 
 | [Luis Henrique K. Reichow] | Desenvolvedor(a) | 
