@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  db-server:
+    image: postgres:15-alpine
+    container_name: db-server
+    restart: always
+    environment:
+      POSTGRES_USER: admin_executivo
+      POSTGRES_PASSWORD: senha_segura
+      POSTGRES_DB: servidores_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - rede_app
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend-api
+    restart: always
+    environment:
+      - DB_HOST=db-server
+      - DB_PORT=5432
+      - DB_USER=admin_executivo
+      - DB_PASS=senha_segura
+      - DB_NAME=servidores_db
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db-server
+    networks:
+      - rede_app
+    # O comando do Gunicorn será executado dentro do Dockerfile do backend,
+    # garantindo o uso de Python + Flask + WSGI Gunicorn no contêiner.
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend-web
+    restart: always
+    ports:
+      - "3000:3000" # Ajuste a porta externa dependendo do framework escolhido pela equipe 
+    depends_on:
+      - backend
+    networks:
+      - rede_app
+
+volumes:
+  db_data: # Volume persistente para não perder a importação dos dados do Portal Brasileiro de Dados Abertos se o contêiner for reiniciado[cite: 1].
+
+networks:
+  rede_app:
+    driver: bridge
