@@ -15,8 +15,7 @@ O sistema permite consultar registros de servidores públicos federais por **nom
 | [Theo Corvello Soares] | Desenvolvedor(a) | 
 | [Luis Henrique K. Reichow] | Desenvolvedor(a) | 
 
-> O líder técnico é responsável pela divisão das tarefas diárias e pela liderança técnica de engenharia de software do projeto, ainda a ser definido pela equipe, ainda em fazes de planejamento.
-
+> O líder técnico é responsável pela divisão das tarefas diárias e pela liderança técnica de engenharia de software do projeto.
 ## Tecnologias utilizadas
 
 **Back-end**
@@ -42,7 +41,3 @@ projeto/
 ├── db/
 └── docs/
 ```
-
-## Em progresso...
-othavio
-
