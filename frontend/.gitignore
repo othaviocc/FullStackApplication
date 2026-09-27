@@ -1,0 +1,18 @@
+# Dependencias
+node_modules/
+
+# Build de producao gerado pelo Vite
+dist/
+dist-ssr/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Variaveis de ambiente locais (o .env.example fica versionado)
+.env
+.env.local
+
+# Editor / SO
+.DS_Store
+.vscode/
