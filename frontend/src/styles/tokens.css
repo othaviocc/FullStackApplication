@@ -1,0 +1,94 @@
+/*
+ * Design tokens da aplicacao.
+ *
+ * Toda cor, espacamento, fonte e raio de borda usado no projeto sai daqui.
+ * Nenhum componente deve escrever "#1e293b" ou "16px" direto no CSS: sempre
+ * var(--alguma-coisa). Assim, mudar o tema inteiro e mexer em um arquivo so.
+ */
+
+:root {
+  /* ---- Cores de marca ---------------------------------------------- */
+  --cor-primaria-900: #0b1f3a;
+  --cor-primaria-700: #14396b;
+  --cor-primaria-500: #1e5aa8;
+  --cor-primaria-300: #6ea3dd;
+  --cor-primaria-100: #e3edf9;
+
+  --cor-destaque-500: #c9a227; /* dourado sobrio, puxa o tom institucional */
+  --cor-destaque-100: #faf3dc;
+
+  /* ---- Neutros ------------------------------------------------------ */
+  --cor-neutro-900: #10151c;
+  --cor-neutro-700: #33404f;
+  --cor-neutro-500: #64748b;
+  --cor-neutro-300: #cbd5e1;
+  --cor-neutro-200: #e2e8f0;
+  --cor-neutro-100: #f1f5f9;
+  --cor-neutro-000: #ffffff;
+
+  /* ---- Cores semanticas (estados de feedback ao usuario) ------------ */
+  --cor-erro-500: #c0392b;
+  --cor-erro-100: #fdecea;
+  --cor-sucesso-500: #1e8e5a;
+  --cor-sucesso-100: #e6f5ee;
+  --cor-alerta-500: #b7791f;
+  --cor-alerta-100: #fdf6e3;
+
+  /* ---- Papeis (o que cada cor significa na interface) ---------------- */
+  --fundo-pagina: var(--cor-neutro-100);
+  --fundo-superficie: var(--cor-neutro-000);
+  --fundo-sutil: var(--cor-neutro-100);
+  --texto-forte: var(--cor-neutro-900);
+  --texto-padrao: var(--cor-neutro-700);
+  --texto-suave: var(--cor-neutro-500);
+  --borda-padrao: var(--cor-neutro-200);
+  --borda-forte: var(--cor-neutro-300);
+
+  /* ---- Tipografia ---------------------------------------------------- */
+  --fonte-base: 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont,
+    'Helvetica Neue', Arial, sans-serif;
+  --fonte-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+
+  /* Escala tipografica (razao ~1.25) */
+  --texto-xs: 0.75rem;   /* 12px */
+  --texto-sm: 0.875rem;  /* 14px */
+  --texto-md: 1rem;      /* 16px - base */
+  --texto-lg: 1.25rem;   /* 20px */
+  --texto-xl: 1.5rem;    /* 24px */
+  --texto-2xl: 2rem;     /* 32px */
+
+  --peso-normal: 400;
+  --peso-medio: 500;
+  --peso-forte: 600;
+  --peso-negrito: 700;
+
+  --altura-linha-apertada: 1.25;
+  --altura-linha-padrao: 1.6;
+
+  /* ---- Espacamento (escala de 4px) ---------------------------------- */
+  --espaco-1: 0.25rem;  /* 4px  */
+  --espaco-2: 0.5rem;   /* 8px  */
+  --espaco-3: 0.75rem;  /* 12px */
+  --espaco-4: 1rem;     /* 16px */
+  --espaco-5: 1.5rem;   /* 24px */
+  --espaco-6: 2rem;     /* 32px */
+  --espaco-7: 3rem;     /* 48px */
+  --espaco-8: 4rem;     /* 64px */
+
+  /* ---- Bordas e sombras ---------------------------------------------- */
+  --raio-sm: 4px;
+  --raio-md: 8px;
+  --raio-lg: 12px;
+  --raio-pill: 999px;
+
+  --sombra-sm: 0 1px 2px rgba(16, 21, 28, 0.06);
+  --sombra-md: 0 4px 12px rgba(16, 21, 28, 0.08);
+  --sombra-lg: 0 12px 32px rgba(16, 21, 28, 0.12);
+
+  /* ---- Layout -------------------------------------------------------- */
+  --largura-maxima: 1180px;
+
+  /* ---- Movimento ----------------------------------------------------- */
+  --transicao-rapida: 120ms ease;
+  --transicao-padrao: 200ms ease;
+}

@@ -1,0 +1,138 @@
+/*
+ * Estilos globais: reset leve + estilo base dos elementos.
+ * Depende das variaveis definidas em tokens.css.
+ */
+
+@import './tokens.css';
+
+/* ---- Reset ---------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Rola suave ate a secao de resultados apos uma busca */
+  scroll-behavior: smooth;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+img,
+picture,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Respeita quem configurou o sistema para reduzir animacoes */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---- Base ------------------------------------------------------------ */
+
+body {
+  min-height: 100vh;
+  font-family: var(--fonte-base);
+  font-size: var(--texto-md);
+  line-height: var(--altura-linha-padrao);
+  color: var(--texto-padrao);
+  background-color: var(--fundo-pagina);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--texto-forte);
+  line-height: var(--altura-linha-apertada);
+  font-weight: var(--peso-forte);
+}
+
+h1 {
+  font-size: var(--texto-2xl);
+}
+
+h2 {
+  font-size: var(--texto-xl);
+}
+
+h3 {
+  font-size: var(--texto-lg);
+}
+
+a {
+  color: var(--cor-primaria-500);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+/* ---- Acessibilidade -------------------------------------------------- */
+
+/*
+ * Anel de foco visivel e consistente. Importante para navegacao por teclado
+ * e some para quem esta usando o mouse (:focus-visible).
+ */
+:focus-visible {
+  outline: 2px solid var(--cor-primaria-500);
+  outline-offset: 2px;
+  border-radius: var(--raio-sm);
+}
+
+/* Texto lido por leitor de tela mas invisivel na tela */
+.apenas-leitor-tela {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- Utilitarios de layout ------------------------------------------- */
+
+.container {
+  width: 100%;
+  max-width: var(--largura-maxima);
+  margin-inline: auto;
+  padding-inline: var(--espaco-4);
+}
