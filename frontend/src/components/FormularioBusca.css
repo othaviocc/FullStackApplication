@@ -143,37 +143,3 @@
   justify-content: flex-end;
   gap: var(--espaco-3);
 }
-
-.botao {
-  padding: var(--espaco-2) var(--espaco-5);
-  font-weight: var(--peso-forte);
-  border: 1px solid transparent;
-  border-radius: var(--raio-md);
-  cursor: pointer;
-  transition: background-color var(--transicao-rapida),
-    border-color var(--transicao-rapida);
-}
-
-.botao:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-.botao--primario {
-  color: var(--cor-neutro-000);
-  background-color: var(--cor-primaria-500);
-}
-
-.botao--primario:hover:not(:disabled) {
-  background-color: var(--cor-primaria-700);
-}
-
-.botao--secundario {
-  color: var(--texto-padrao);
-  background-color: transparent;
-  border-color: var(--borda-forte);
-}
-
-.botao--secundario:hover:not(:disabled) {
-  background-color: var(--fundo-sutil);
-}
