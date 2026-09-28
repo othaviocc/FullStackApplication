@@ -1,0 +1,129 @@
+/*
+ * Estilos da area de resultados.
+ */
+
+.resultados {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+  padding: var(--espaco-5);
+  background-color: var(--fundo-superficie);
+  border: 1px solid var(--borda-padrao);
+  border-radius: var(--raio-lg);
+  box-shadow: var(--sombra-sm);
+}
+
+.resultados__cabecalho {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--espaco-2);
+}
+
+.resultados__total {
+  font-size: var(--texto-sm);
+  color: var(--texto-suave);
+}
+
+/* ---- Estados ----------------------------------------------------------- */
+
+.resultados--carregando,
+.resultados--vazio,
+.resultados--erro {
+  align-items: center;
+  text-align: center;
+  padding-block: var(--espaco-7);
+}
+
+.resultados--vazio {
+  color: var(--texto-suave);
+}
+
+.resultados--erro {
+  color: var(--cor-erro-500);
+  background-color: var(--cor-erro-100);
+  border-color: var(--cor-erro-500);
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--cor-primaria-100);
+  border-top-color: var(--cor-primaria-500);
+  border-radius: 50%;
+  animation: girar 0.8s linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---- Tabela ------------------------------------------------------------ */
+
+/* Em telas estreitas a tabela rola na horizontal sem quebrar a pagina. */
+.tabela-rolagem {
+  overflow-x: auto;
+  border: 1px solid var(--borda-padrao);
+  border-radius: var(--raio-md);
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--texto-sm);
+}
+
+.tabela th,
+.tabela td {
+  padding: var(--espaco-3) var(--espaco-4);
+  text-align: left;
+  border-bottom: 1px solid var(--borda-padrao);
+}
+
+.tabela th {
+  font-weight: var(--peso-forte);
+  color: var(--texto-forte);
+  background-color: var(--fundo-sutil);
+  white-space: nowrap;
+}
+
+.tabela tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.tabela tbody tr:hover {
+  background-color: var(--cor-primaria-100);
+}
+
+/* ---- Ficha (resultado unico) ------------------------------------------- */
+
+.ficha {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+  padding: var(--espaco-5);
+  border-left: 4px solid var(--cor-destaque-500);
+  background-color: var(--fundo-sutil);
+  border-radius: var(--raio-md);
+}
+
+.ficha__dados {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--espaco-3) var(--espaco-5);
+}
+
+.ficha__linha dt {
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-forte);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--texto-suave);
+}
+
+.ficha__linha dd {
+  color: var(--texto-forte);
+}
