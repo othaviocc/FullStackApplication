@@ -1,0 +1,43 @@
+/*
+ * Layout geral da pagina: cabecalho, conteudo e rodape.
+ */
+
+.topo {
+  padding-block: var(--espaco-7) var(--espaco-8);
+  color: var(--cor-primaria-100);
+  background: linear-gradient(135deg, var(--cor-primaria-900), var(--cor-primaria-700));
+  border-bottom: 4px solid var(--cor-destaque-500);
+}
+
+.topo h1 {
+  color: var(--cor-neutro-000);
+}
+
+.topo__sobretitulo {
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-forte);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cor-destaque-500);
+}
+
+.topo__subtitulo {
+  margin-top: var(--espaco-2);
+  max-width: 60ch;
+}
+
+/* O formulario "sobe" por cima do cabecalho para dar profundidade. */
+.conteudo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-5);
+  margin-top: calc(-1 * var(--espaco-6));
+  padding-bottom: var(--espaco-7);
+}
+
+.rodape {
+  padding-block: var(--espaco-5);
+  font-size: var(--texto-sm);
+  color: var(--texto-suave);
+  border-top: 1px solid var(--borda-padrao);
+}
