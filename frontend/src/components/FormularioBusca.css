@@ -1,0 +1,179 @@
+/*
+ * Estilos do formulario de busca.
+ * Todas as medidas e cores vem de tokens.css.
+ */
+
+.formulario-busca {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+  padding: var(--espaco-5);
+  background-color: var(--fundo-superficie);
+  border: 1px solid var(--borda-padrao);
+  border-radius: var(--raio-lg);
+  box-shadow: var(--sombra-md);
+}
+
+/* ---- Abas de modo ------------------------------------------------------ */
+
+.formulario-busca__modos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-2);
+  padding-bottom: var(--espaco-4);
+  border-bottom: 1px solid var(--borda-padrao);
+}
+
+.formulario-busca__modo {
+  padding: var(--espaco-2) var(--espaco-4);
+  font-size: var(--texto-sm);
+  font-weight: var(--peso-medio);
+  color: var(--texto-padrao);
+  background-color: var(--fundo-sutil);
+  border: 1px solid transparent;
+  border-radius: var(--raio-pill);
+  cursor: pointer;
+  transition: background-color var(--transicao-rapida),
+    color var(--transicao-rapida), border-color var(--transicao-rapida);
+}
+
+.formulario-busca__modo:hover:not(:disabled) {
+  border-color: var(--cor-primaria-300);
+}
+
+.formulario-busca__modo[aria-selected='true'] {
+  color: var(--cor-neutro-000);
+  background-color: var(--cor-primaria-700);
+}
+
+.formulario-busca__modo:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.formulario-busca__descricao {
+  font-size: var(--texto-sm);
+  color: var(--texto-suave);
+}
+
+/* ---- Campos ------------------------------------------------------------ */
+
+.formulario-busca__campos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--espaco-4);
+}
+
+/* Na similaridade o padrao do nome ocupa mais espaco que o limite. */
+.formulario-busca__campos--similar {
+  grid-template-columns: 3fr 1fr;
+}
+
+@media (max-width: 600px) {
+  .formulario-busca__campos--similar {
+    grid-template-columns: 1fr;
+  }
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-1);
+  min-width: 0;
+}
+
+.campo label {
+  font-size: var(--texto-sm);
+  font-weight: var(--peso-forte);
+  color: var(--texto-forte);
+}
+
+.campo input,
+.campo select {
+  width: 100%;
+  padding: var(--espaco-2) var(--espaco-3);
+  background-color: var(--fundo-superficie);
+  border: 1px solid var(--borda-forte);
+  border-radius: var(--raio-md);
+  transition: border-color var(--transicao-rapida),
+    box-shadow var(--transicao-rapida);
+}
+
+.campo input:focus,
+.campo select:focus {
+  outline: none;
+  border-color: var(--cor-primaria-500);
+  box-shadow: 0 0 0 3px var(--cor-primaria-100);
+}
+
+.campo input[aria-invalid='true'],
+.campo select[aria-invalid='true'] {
+  border-color: var(--cor-erro-500);
+}
+
+.campo input:disabled,
+.campo select:disabled {
+  background-color: var(--fundo-sutil);
+  cursor: not-allowed;
+}
+
+.campo__dica {
+  font-size: var(--texto-xs);
+  color: var(--texto-suave);
+}
+
+.campo__erro {
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-medio);
+  color: var(--cor-erro-500);
+}
+
+.formulario-busca__erro-geral {
+  padding: var(--espaco-2) var(--espaco-3);
+  font-size: var(--texto-sm);
+  color: var(--cor-erro-500);
+  background-color: var(--cor-erro-100);
+  border-radius: var(--raio-md);
+}
+
+/* ---- Acoes ------------------------------------------------------------- */
+
+.formulario-busca__acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--espaco-3);
+}
+
+.botao {
+  padding: var(--espaco-2) var(--espaco-5);
+  font-weight: var(--peso-forte);
+  border: 1px solid transparent;
+  border-radius: var(--raio-md);
+  cursor: pointer;
+  transition: background-color var(--transicao-rapida),
+    border-color var(--transicao-rapida);
+}
+
+.botao:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.botao--primario {
+  color: var(--cor-neutro-000);
+  background-color: var(--cor-primaria-500);
+}
+
+.botao--primario:hover:not(:disabled) {
+  background-color: var(--cor-primaria-700);
+}
+
+.botao--secundario {
+  color: var(--texto-padrao);
+  background-color: transparent;
+  border-color: var(--borda-forte);
+}
+
+.botao--secundario:hover:not(:disabled) {
+  background-color: var(--fundo-sutil);
+}
