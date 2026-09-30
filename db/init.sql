@@ -1,9 +1,9 @@
--- ============================================================
 -- Schema: Gestão de Pessoas do Executivo Federal
 -- Tabela: servidores_ativos (dataset CARREIRA-012017.csv)
--- ============================================================
 
 CREATE EXTENSION IF NOT EXISTS pg_trgm;
+
+#ta ficando maneiro essa parte aqui:
 
 CREATE TABLE IF NOT EXISTS servidores_ativos (
     id                  SERIAL PRIMARY KEY,
@@ -29,7 +29,5 @@ CREATE INDEX IF NOT EXISTS idx_ativos_nome_trgm
 -- SELECT * FROM servidores_ativos WHERE nome ILIKE '%SILVA%' LIMIT 100;
 -- SELECT * FROM servidores_ativos WHERE nome %% 'SILVA' ORDER BY similarity(nome,'SILVA') DESC LIMIT 100;
 
--- ============================================================
 -- Tabela: aposentados (dataset APOSENTADOS_082026.csv) — PENDENTE
--- ============================================================
 -- CREATE TABLE IF NOT EXISTS aposentados ( ... );
