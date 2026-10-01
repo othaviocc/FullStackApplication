@@ -18,17 +18,17 @@ O sistema permite consultar registros de servidores públicos federais por **nom
 > O líder técnico é responsável pela divisão das tarefas diárias e pela liderança técnica de engenharia de software do projeto.
 ## Tecnologias utilizadas
 
-**Back-end**
-- Pytohn...
+**Back-end / API**
+- Python + Flask + WSGI Gunicorn (multi-threading)
 
 **Banco de dados**
-- PostgreSQL...? definir ainda
+- PostgreSQL
 
 **Front-end**
-- definir etapas
+- HTML/CSS/JavaScript + Framework web
 
 **Infraestrutura**
-- Docker + Docker Compose?
+- Docker e Docker Compose
 
 ## Estrutura de pastas
 
