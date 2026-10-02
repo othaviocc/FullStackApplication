@@ -1,5 +1,5 @@
+-- ============================================================
 -- Schema: Gestão de Pessoas do Executivo Federal
-<<<<<<< HEAD
 -- ============================================================
 
 CREATE EXTENSION IF NOT EXISTS pg_trgm;
@@ -7,14 +7,6 @@ CREATE EXTENSION IF NOT EXISTS pg_trgm;
 -- ------------------------------------------------------------
 -- Tabela: servidores_ativos (dataset CARREIRA-012017.csv)
 -- ------------------------------------------------------------
-=======
--- Tabela: servidores_ativos (dataset CARREIRA-012017.csv)
-
-CREATE EXTENSION IF NOT EXISTS pg_trgm;
-
-#ta ficando maneiro essa parte aqui:
-
->>>>>>> 0433660bc319ec388ea5cea6aa6a2c05ee451373
 CREATE TABLE IF NOT EXISTS servidores_ativos (
     id                  SERIAL PRIMARY KEY,
     nome                VARCHAR(255) NOT NULL,
@@ -71,10 +63,26 @@ CREATE INDEX IF NOT EXISTS idx_aposentados_nome_trgm
 -- SELECT * FROM aposentados WHERE nome % 'SILVA' ORDER BY similarity(nome, 'SILVA') DESC LIMIT 100;
 -- ------------------------------------------------------------
 
-<<<<<<< HEAD
--- Pendente: VIEW "servidores" unificando as duas tabelas pra API consultar
--- com uma query só (nome, cargo, orgao, uf, situacao, remuneracao).
-=======
--- Tabela: aposentados (dataset APOSENTADOS_082026.csv) — PENDENTE
--- CREATE TABLE IF NOT EXISTS aposentados ( ... );
->>>>>>> 0433660bc319ec388ea5cea6aa6a2c05ee451373
+-- ------------------------------------------------------------
+-- View unificada consumida pela API (/api/servidores)
+-- ------------------------------------------------------------
+CREATE OR REPLACE VIEW servidores AS
+    SELECT
+        id,
+        nome,
+        descricao_cargo AS cargo,
+        orgao_atuacao    AS orgao,
+        uf,
+        'ATIVO'::VARCHAR(15) AS situacao,
+        valor_remuneracao   AS remuneracao
+    FROM servidores_ativos
+    UNION ALL
+    SELECT
+        id,
+        nome,
+        cargo,
+        orgao,
+        NULL::VARCHAR(2) AS uf,  -- dataset de aposentados não possui UF
+        'APOSENTADO'::VARCHAR(15) AS situacao,
+        valor_remuneracao AS remuneracao
+    FROM aposentados;
