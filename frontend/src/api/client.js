@@ -32,11 +32,29 @@ const TEMPO_LIMITE_MS = 15000
  * ----------------------------------------------------------------------- */
 
 export class ErroApi extends Error {
-  constructor(mensagem, codigo = 'desconhecido', status = null) {
+  constructor(mensagem, codigo = 'desconhecido', status = null, detalhe = null) {
     super(mensagem)
     this.name = 'ErroApi'
     this.codigo = codigo
     this.status = status
+    /* Mensagem especifica enviada pelo back-end (ex.: "UF invalida: XX"). */
+    this.detalhe = detalhe
+  }
+}
+
+/* Le a mensagem de erro do corpo JSON, se o back-end enviou uma. Respostas
+   em HTML (ex.: pagina de erro do nginx quando a API cai) sao ignoradas. */
+async function lerDetalheErro(resposta) {
+  if (!resposta.headers.get('content-type')?.includes('application/json')) {
+    return null
+  }
+  try {
+    const corpo = await resposta.json()
+    const detalhe =
+      corpo?.erro ?? corpo?.mensagem ?? corpo?.message ?? corpo?.description ?? corpo?.error
+    return typeof detalhe === 'string' && detalhe.trim() !== '' ? detalhe.trim() : null
+  } catch {
+    return null
   }
 }
 
@@ -205,11 +223,23 @@ export async function buscarServidores(
       throw new ErroApi(
         mensagemParaStatus(resposta.status),
         `http_${resposta.status}`,
-        resposta.status
+        resposta.status,
+        await lerDetalheErro(resposta)
       )
     }
 
-    const corpo = await resposta.json()
+    let corpo
+    try {
+      corpo = await resposta.json()
+    } catch {
+      /* Sem isso, um corpo que nao e JSON cairia no catch de baixo e seria
+         reportado como "API fora do ar", o que confundiria o diagnostico. */
+      throw new ErroApi(
+        'A API respondeu em um formato inesperado.',
+        'resposta_invalida',
+        resposta.status
+      )
+    }
     return normalizarResposta(corpo, pagina, limite)
   } catch (erro) {
     if (erro instanceof ErroApi) throw erro

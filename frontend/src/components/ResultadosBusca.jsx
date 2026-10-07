@@ -6,6 +6,7 @@
  */
 
 import { useRef } from 'react'
+import AvisoErro from './AvisoErro.jsx'
 import Paginacao from './Paginacao.jsx'
 import './ResultadosBusca.css'
 
@@ -112,22 +113,20 @@ export default function ResultadosBusca({
     )
   }
 
-  const avisoErro = status === 'erro' && (
-    <div className="resultados__erro" role="alert">
-      <p>{erro?.message}</p>
-      {aoTentarNovamente && (
-        <button type="button" className="botao botao--secundario" onClick={aoTentarNovamente}>
-          Tentar novamente
-        </button>
-      )}
-    </div>
-  )
+  /* A API pode responder 404 para "nome nao encontrado": para o usuario
+     isso e uma busca sem resultados, nao uma falha. */
+  const semResultados = status === 'erro' && erro?.status === 404
+  const falhou = status === 'erro' && !semResultados
 
-  if (status === 'erro' && !temDados) {
-    return <section className="resultados resultados--erro">{avisoErro}</section>
+  if (falhou && !temDados) {
+    return (
+      <section className="resultados resultados--erro">
+        <AvisoErro erro={erro} aoTentarNovamente={aoTentarNovamente} />
+      </section>
+    )
   }
 
-  if (!temDados) {
+  if (!temDados || semResultados) {
     return (
       <section className="resultados resultados--vazio" aria-live="polite">
         <p>Nenhum servidor encontrado para os filtros informados.</p>
@@ -153,7 +152,9 @@ export default function ResultadosBusca({
         </span>
       </header>
 
-      {avisoErro}
+      {falhou && (
+        <AvisoErro erro={erro} aoTentarNovamente={aoTentarNovamente} compacto />
+      )}
 
       {/* Ao trocar de pagina a anterior continua visivel, esmaecida, ate a
           nova chegar: a tela nao "pisca" e o usuario nao perde a posicao. */}

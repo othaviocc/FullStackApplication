@@ -1,0 +1,56 @@
+/*
+ * Estilos do aviso de erro.
+ */
+
+.aviso-erro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--espaco-4);
+  padding: var(--espaco-5);
+  color: var(--texto-padrao);
+  background-color: var(--cor-erro-100);
+  border: 1px solid var(--cor-erro-500);
+  border-left-width: 4px;
+  border-radius: var(--raio-md);
+}
+
+.aviso-erro--compacto {
+  padding: var(--espaco-3) var(--espaco-4);
+}
+
+.aviso-erro__icone {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  font-weight: var(--peso-negrito);
+  color: var(--cor-neutro-000);
+  background-color: var(--cor-erro-500);
+  border-radius: 50%;
+}
+
+.aviso-erro__texto {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-1);
+  flex: 1 1 240px;
+  min-width: 0;
+  font-size: var(--texto-sm);
+}
+
+.aviso-erro__titulo {
+  font-size: var(--texto-md);
+  font-weight: var(--peso-forte);
+  color: var(--cor-erro-500);
+}
+
+.aviso-erro__dica {
+  color: var(--texto-suave);
+}
+
+.aviso-erro .botao {
+  align-self: center;
+  background-color: var(--fundo-superficie);
+}
