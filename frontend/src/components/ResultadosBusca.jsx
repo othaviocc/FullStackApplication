@@ -14,19 +14,17 @@ const formatadorMoeda = new Intl.NumberFormat('pt-BR', {
 })
 
 function formatarRemuneracao(valor) {
+  if (valor === null || valor === undefined || valor === '') return '—'
   const numero = Number(valor)
   return Number.isFinite(numero) ? formatadorMoeda.format(numero) : '—'
 }
 
 function FichaServidor({ servidor }) {
   const linhas = [
-    ['Cargo', servidor.descricao_cargo],
-    ['Órgão', servidor.orgao_atuacao],
+    ['Cargo', servidor.cargo],
+    ['Órgão', servidor.orgao],
     ['UF', servidor.uf],
-    ['CPF', servidor.cpf],
-    ['Código da carreira', servidor.codigo_carreira],
-    ['Mês de referência', servidor.mes_referencia],
-    ['Remuneração', formatarRemuneracao(servidor.valor_remuneracao)]
+    ['Remuneração', formatarRemuneracao(servidor.remuneracao)]
   ]
 
   return (
@@ -58,11 +56,11 @@ function TabelaServidores({ registros }) {
         </thead>
         <tbody>
           {registros.map((servidor, indice) => (
-            <tr key={servidor.id ?? indice}>
+            <tr key={servidor.chave ?? indice}>
               <td>{servidor.nome}</td>
-              <td>{servidor.descricao_cargo}</td>
-              <td>{servidor.orgao_atuacao}</td>
-              <td>{servidor.uf}</td>
+              <td>{servidor.cargo}</td>
+              <td>{servidor.orgao}</td>
+              <td>{servidor.uf ?? '—'}</td>
             </tr>
           ))}
         </tbody>

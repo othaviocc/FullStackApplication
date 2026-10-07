@@ -1,7 +1,8 @@
 /*
  * Dados falsos para desenvolver a interface enquanto o backend nao esta
- * pronto. As colunas seguem exatamente o schema definido em db/init.sql,
- * para que a troca do mock pela API real nao exija mudanca nos componentes.
+ * pronto. As colunas seguem a view "servidores" de db/init.sql (ativos e
+ * aposentados unificados), para que a troca do mock pela API real nao exija
+ * mudanca nos componentes.
  */
 
 const ORGAOS = [
@@ -53,6 +54,7 @@ function criarGerador(semente) {
 function gerarRegistros(quantidade = 240) {
   const sortear = criarGerador(42)
   const registros = []
+  const contadores = { ATIVO: 0, APOSENTADO: 0 }
 
   for (let i = 0; i < quantidade; i += 1) {
     const orgao = ORGAOS[Math.floor(sortear() * ORGAOS.length)]
@@ -60,16 +62,20 @@ function gerarRegistros(quantidade = 240) {
     const sobrenome = SOBRENOMES[Math.floor(sortear() * SOBRENOMES.length)]
     const ultimoSobrenome = SOBRENOMES[Math.floor(sortear() * SOBRENOMES.length)]
 
+    /* Igual a view, os aposentados nao tem UF e tem uma sequencia de ids
+       propria (podendo repetir ids dos ativos). */
+    const aposentado = sortear() < 0.33
+    const situacao = aposentado ? 'APOSENTADO' : 'ATIVO'
+    contadores[situacao] += 1
+
     registros.push({
-      id: i + 1,
+      id: contadores[situacao],
       nome: `${prenome} ${sobrenome} ${ultimoSobrenome}`,
-      cpf: `***${Math.floor(sortear() * 900000) + 100000}**`,
-      codigo_carreira: String(Math.floor(sortear() * 900000000) + 100000000),
-      descricao_cargo: CARGOS[Math.floor(sortear() * CARGOS.length)],
-      uf: orgao.uf,
-      orgao_atuacao: orgao.nome,
-      mes_referencia: '08/2026',
-      valor_remuneracao: Number((sortear() * 18000 + 1500).toFixed(2))
+      cargo: CARGOS[Math.floor(sortear() * CARGOS.length)],
+      orgao: orgao.nome,
+      uf: aposentado ? null : orgao.uf,
+      situacao,
+      remuneracao: Number((sortear() * 18000 + 1500).toFixed(2))
     })
   }
 

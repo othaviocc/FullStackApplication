@@ -128,6 +128,30 @@ function montarQuery(filtros, pagina, limite) {
 }
 
 /*
+ * Converte um registro da API para o formato usado pelos componentes.
+ *
+ * A view "servidores" do banco devolve cargo/orgao/remuneracao/situacao, mas
+ * os nomes das colunas originais (descricao_cargo, orgao_atuacao...) tambem
+ * sao aceitos, caso o back-end consulte as tabelas direto.
+ */
+function normalizarRegistro(registro) {
+  const situacao = registro.situacao ? String(registro.situacao).toUpperCase() : null
+
+  return {
+    ...registro,
+    nome: registro.nome ?? '',
+    cargo: registro.cargo ?? registro.descricao_cargo ?? null,
+    orgao: registro.orgao ?? registro.orgao_atuacao ?? null,
+    uf: registro.uf ?? null,
+    situacao,
+    remuneracao: registro.remuneracao ?? registro.valor_remuneracao ?? null,
+    /* Ativos e aposentados vem de tabelas diferentes, cada uma com seu SERIAL,
+       entao o id sozinho pode se repetir entre as duas. */
+    chave: `${situacao ?? 'X'}-${registro.id ?? registro.nome}`
+  }
+}
+
+/*
  * Normaliza a resposta do back-end.
  *
  * O formato exato ainda nao foi fechado com o time de API, entao aceitamos as
@@ -142,7 +166,7 @@ function normalizarResposta(corpo, pagina, limite) {
   const total = Number(corpo?.total ?? corpo?.total_registros ?? lista.length)
 
   return {
-    registros: lista,
+    registros: lista.map(normalizarRegistro),
     total,
     pagina: Number(corpo?.pagina ?? corpo?.page ?? pagina),
     limite: Number(corpo?.limite ?? corpo?.limit ?? limite),
@@ -242,7 +266,7 @@ async function buscarNoMock(filtros, pagina, limite) {
   if (filtros.cargo) {
     const alvo = filtros.cargo.trim().toLowerCase()
     resultado = resultado.filter((r) =>
-      r.descricao_cargo.toLowerCase().includes(alvo)
+      r.cargo.toLowerCase().includes(alvo)
     )
   }
 
@@ -254,7 +278,7 @@ async function buscarNoMock(filtros, pagina, limite) {
   if (filtros.orgao) {
     const alvo = filtros.orgao.trim().toLowerCase()
     resultado = resultado.filter((r) =>
-      r.orgao_atuacao.toLowerCase().includes(alvo)
+      r.orgao.toLowerCase().includes(alvo)
     )
   }
 
@@ -262,7 +286,7 @@ async function buscarNoMock(filtros, pagina, limite) {
   const inicio = (pagina - 1) * limite
 
   return {
-    registros: resultado.slice(inicio, inicio + limite),
+    registros: resultado.slice(inicio, inicio + limite).map(normalizarRegistro),
     total,
     pagina,
     limite,
