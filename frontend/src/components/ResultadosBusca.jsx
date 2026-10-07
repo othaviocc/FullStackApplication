@@ -2,10 +2,10 @@
  * Exibe o estado atual da busca: carregando, erro, sem resultados, um unico
  * registro (ficha detalhada, como pede o enunciado) ou lista de registros.
  *
- * A paginacao completa entra na proxima fase; por enquanto a lista mostra a
- * primeira pagina devolvida pela API e o total encontrado.
+ * Com varios resultados, a tabela vem acompanhada da barra de paginacao.
  */
 
+import Paginacao from './Paginacao.jsx'
 import './ResultadosBusca.css'
 
 const formatadorMoeda = new Intl.NumberFormat('pt-BR', {
@@ -69,7 +69,13 @@ function TabelaServidores({ registros }) {
   )
 }
 
-export default function ResultadosBusca({ status, dados, erro, aoTentarNovamente }) {
+export default function ResultadosBusca({
+  status,
+  dados,
+  erro,
+  aoTentarNovamente,
+  aoMudarPagina
+}) {
   if (status === 'ocioso') return null
 
   if (status === 'carregando') {
@@ -118,7 +124,14 @@ export default function ResultadosBusca({ status, dados, erro, aoTentarNovamente
       {total === 1 ? (
         <FichaServidor servidor={registros[0]} />
       ) : (
-        <TabelaServidores registros={registros} />
+        <>
+          <TabelaServidores registros={registros} />
+          <Paginacao
+            pagina={dados.pagina}
+            totalPaginas={dados.totalPaginas}
+            aoMudarPagina={aoMudarPagina}
+          />
+        </>
       )}
     </section>
   )

@@ -5,7 +5,8 @@ import ResultadosBusca from './components/ResultadosBusca.jsx'
 import { useBuscaServidores } from './hooks/useBuscaServidores.js'
 
 export default function App() {
-  const { status, dados, erro, filtros, carregando, buscar } = useBuscaServidores()
+  const { status, dados, erro, carregando, buscar, irParaPagina, tentarNovamente } =
+    useBuscaServidores()
 
   return (
     <>
@@ -25,7 +26,8 @@ export default function App() {
           status={status}
           dados={dados}
           erro={erro}
-          aoTentarNovamente={filtros ? () => buscar(filtros) : undefined}
+          aoTentarNovamente={tentarNovamente}
+          aoMudarPagina={irParaPagina}
         />
       </main>
 
