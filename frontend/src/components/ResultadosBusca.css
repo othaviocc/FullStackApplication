@@ -127,3 +127,31 @@
 .ficha__linha dd {
   color: var(--texto-forte);
 }
+
+.ficha__cabecalho {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espaco-3);
+}
+
+/* ---- Selo de situacao -------------------------------------------------- */
+
+.selo {
+  display: inline-block;
+  padding: 2px var(--espaco-2);
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-forte);
+  border-radius: var(--raio-pill);
+  white-space: nowrap;
+}
+
+.selo--ativo {
+  color: var(--cor-sucesso-500);
+  background-color: var(--cor-sucesso-100);
+}
+
+.selo--aposentado {
+  color: var(--cor-alerta-500);
+  background-color: var(--cor-alerta-100);
+}

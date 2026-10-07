@@ -19,17 +19,30 @@ function formatarRemuneracao(valor) {
   return Number.isFinite(numero) ? formatadorMoeda.format(numero) : '—'
 }
 
+/* A base de aposentados nao traz UF; explicar evita parecer dado faltando. */
+const UF_AUSENTE = 'A base de aposentados não informa a UF'
+
+function SeloSituacao({ situacao }) {
+  if (!situacao) return '—'
+  const classe = situacao === 'APOSENTADO' ? 'selo--aposentado' : 'selo--ativo'
+  const rotulo = situacao === 'APOSENTADO' ? 'Aposentado' : 'Ativo'
+  return <span className={`selo ${classe}`}>{rotulo}</span>
+}
+
 function FichaServidor({ servidor }) {
   const linhas = [
     ['Cargo', servidor.cargo],
     ['Órgão', servidor.orgao],
-    ['UF', servidor.uf],
+    ['UF', servidor.uf ?? (servidor.situacao === 'APOSENTADO' ? 'Não informada' : null)],
     ['Remuneração', formatarRemuneracao(servidor.remuneracao)]
   ]
 
   return (
     <article className="ficha">
-      <h3 className="ficha__nome">{servidor.nome}</h3>
+      <header className="ficha__cabecalho">
+        <h3 className="ficha__nome">{servidor.nome}</h3>
+        <SeloSituacao situacao={servidor.situacao} />
+      </header>
       <dl className="ficha__dados">
         {linhas.map(([rotulo, valor]) => (
           <div key={rotulo} className="ficha__linha">
@@ -52,6 +65,7 @@ function TabelaServidores({ registros }) {
             <th scope="col">Cargo</th>
             <th scope="col">Órgão</th>
             <th scope="col">UF</th>
+            <th scope="col">Situação</th>
           </tr>
         </thead>
         <tbody>
@@ -60,7 +74,10 @@ function TabelaServidores({ registros }) {
               <td>{servidor.nome}</td>
               <td>{servidor.cargo}</td>
               <td>{servidor.orgao}</td>
-              <td>{servidor.uf ?? '—'}</td>
+              <td title={servidor.uf ? undefined : UF_AUSENTE}>{servidor.uf ?? '—'}</td>
+              <td>
+                <SeloSituacao situacao={servidor.situacao} />
+              </td>
             </tr>
           ))}
         </tbody>
