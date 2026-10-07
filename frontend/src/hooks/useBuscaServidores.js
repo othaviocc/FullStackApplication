@@ -38,8 +38,12 @@ export function useBuscaServidores() {
     const limite = limiteInformado ? Number(limiteInformado) : ITENS_POR_PAGINA
 
     setPaginaLocal(1)
+    /* Trocar de pagina ou repetir a busca reaproveita o mesmo objeto de
+       filtros: nesse caso os dados atuais continuam na tela enquanto a nova
+       pagina carrega. Uma busca nova comeca do zero. */
     setEstado((anterior) => ({
       ...anterior,
+      dados: anterior.filtros === filtros ? anterior.dados : null,
       status: 'carregando',
       erro: null,
       filtros,
@@ -62,9 +66,9 @@ export function useBuscaServidores() {
 
       setEstado((anterior) => ({
         status: 'erro',
-        /* Mantem os dados anteriores para a tela poder continuar mostrando a
-           ultima pagina valida junto com a mensagem de erro. */
-        dados: anterior.dados,
+        /* Na mesma busca, a ultima pagina valida continua visivel junto com
+           a mensagem de erro. */
+        dados: anterior.filtros === filtros ? anterior.dados : null,
         erro:
           erro instanceof ErroApi
             ? erro

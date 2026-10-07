@@ -5,6 +5,7 @@
  * Com varios resultados, a tabela vem acompanhada da barra de paginacao.
  */
 
+import { useRef } from 'react'
 import Paginacao from './Paginacao.jsx'
 import './ResultadosBusca.css'
 
@@ -93,9 +94,16 @@ export default function ResultadosBusca({
   aoTentarNovamente,
   aoMudarPagina
 }) {
+  const secaoRef = useRef(null)
+
   if (status === 'ocioso') return null
 
-  if (status === 'carregando') {
+  const registros = dados?.registros ?? []
+  const temDados = registros.length > 0
+  const carregando = status === 'carregando'
+
+  /* Primeira carga de uma busca: ainda nao ha nada para mostrar. */
+  if (carregando && !temDados) {
     return (
       <section className="resultados resultados--carregando" aria-live="polite" aria-busy="true">
         <span className="spinner" aria-hidden="true" />
@@ -104,22 +112,22 @@ export default function ResultadosBusca({
     )
   }
 
-  if (status === 'erro') {
-    return (
-      <section className="resultados resultados--erro" role="alert">
-        <p>{erro?.message}</p>
-        {aoTentarNovamente && (
-          <button type="button" className="botao botao--secundario" onClick={aoTentarNovamente}>
-            Tentar novamente
-          </button>
-        )}
-      </section>
-    )
+  const avisoErro = status === 'erro' && (
+    <div className="resultados__erro" role="alert">
+      <p>{erro?.message}</p>
+      {aoTentarNovamente && (
+        <button type="button" className="botao botao--secundario" onClick={aoTentarNovamente}>
+          Tentar novamente
+        </button>
+      )}
+    </div>
+  )
+
+  if (status === 'erro' && !temDados) {
+    return <section className="resultados resultados--erro">{avisoErro}</section>
   }
 
-  const registros = dados?.registros ?? []
-
-  if (registros.length === 0) {
+  if (!temDados) {
     return (
       <section className="resultados resultados--vazio" aria-live="polite">
         <p>Nenhum servidor encontrado para os filtros informados.</p>
@@ -129,8 +137,15 @@ export default function ResultadosBusca({
 
   const total = dados.total ?? registros.length
 
+  /* Quem clica em "Proxima" esta no fim da tabela; levar a tela ao inicio
+     dos resultados mostra o indicador de carregamento e o primeiro item. */
+  function mudarPagina(pagina) {
+    secaoRef.current?.scrollIntoView({ block: 'start' })
+    aoMudarPagina(pagina)
+  }
+
   return (
-    <section className="resultados" aria-live="polite">
+    <section ref={secaoRef} className="resultados" aria-live="polite" aria-busy={carregando}>
       <header className="resultados__cabecalho">
         <h2>Resultados</h2>
         <span className="resultados__total">
@@ -138,17 +153,32 @@ export default function ResultadosBusca({
         </span>
       </header>
 
-      {total === 1 ? (
-        <FichaServidor servidor={registros[0]} />
-      ) : (
-        <>
+      {avisoErro}
+
+      {/* Ao trocar de pagina a anterior continua visivel, esmaecida, ate a
+          nova chegar: a tela nao "pisca" e o usuario nao perde a posicao. */}
+      <div className={`resultados__corpo${carregando ? ' resultados__corpo--carregando' : ''}`}>
+        {carregando && (
+          <div className="resultados__sobreposicao">
+            <span className="spinner" aria-hidden="true" />
+            <span className="apenas-leitor-tela">Carregando página…</span>
+          </div>
+        )}
+
+        {total === 1 ? (
+          <FichaServidor servidor={registros[0]} />
+        ) : (
           <TabelaServidores registros={registros} />
-          <Paginacao
-            pagina={dados.pagina}
-            totalPaginas={dados.totalPaginas}
-            aoMudarPagina={aoMudarPagina}
-          />
-        </>
+        )}
+      </div>
+
+      {total > 1 && (
+        <Paginacao
+          pagina={dados.pagina}
+          totalPaginas={dados.totalPaginas}
+          aoMudarPagina={mudarPagina}
+          desabilitado={carregando}
+        />
       )}
     </section>
   )

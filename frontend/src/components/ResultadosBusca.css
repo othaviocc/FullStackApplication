@@ -29,8 +29,7 @@
 /* ---- Estados ----------------------------------------------------------- */
 
 .resultados--carregando,
-.resultados--vazio,
-.resultados--erro {
+.resultados--vazio {
   align-items: center;
   text-align: center;
   padding-block: var(--espaco-7);
@@ -40,10 +39,44 @@
   color: var(--texto-suave);
 }
 
-.resultados--erro {
+.resultados__erro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espaco-3);
+  padding: var(--espaco-4);
+  text-align: center;
   color: var(--cor-erro-500);
   background-color: var(--cor-erro-100);
-  border-color: var(--cor-erro-500);
+  border: 1px solid var(--cor-erro-500);
+  border-radius: var(--raio-md);
+}
+
+.resultados--erro {
+  padding: var(--espaco-5);
+}
+
+/* ---- Carregamento sobre resultados ja exibidos -------------------------- */
+
+.resultados__corpo {
+  position: relative;
+}
+
+.resultados__corpo--carregando > :not(.resultados__sobreposicao) {
+  opacity: 0.45;
+  pointer-events: none;
+  transition: opacity var(--transicao-padrao);
+}
+
+.resultados__sobreposicao {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  /* Fica no topo da tabela, onde o usuario esta olhando apos clicar. */
+  align-items: flex-start;
+  padding-top: var(--espaco-7);
 }
 
 .spinner {
