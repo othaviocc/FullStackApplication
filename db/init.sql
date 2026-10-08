@@ -59,7 +59,7 @@ CREATE INDEX IF NOT EXISTS idx_aposentados_nome_trgm
 -- ------------------------------------------------------------
 -- Exemplos de busca que os índices aceleram:
 -- SELECT * FROM servidores_ativos WHERE descricao_cargo = 'ANALISTA...';
--- SELECT * FROM servidores_ativos WHERE nome ILIKE '%SILVA%' LIMIT 100;
+
 
 
 -- ------------------------------------------------------------
