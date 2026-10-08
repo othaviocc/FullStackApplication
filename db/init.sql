@@ -56,7 +56,7 @@ CREATE INDEX IF NOT EXISTS idx_aposentados_orgao ON aposentados (orgao);
 CREATE INDEX IF NOT EXISTS idx_aposentados_nome_trgm
     ON aposentados USING GIN (nome gin_trgm_ops);
 
--- ------------------------------------------------------------
+
 -- Exemplos de busca que os índices aceleram:
 -- SELECT * FROM servidores_ativos WHERE descricao_cargo = 'ANALISTA...';
 
