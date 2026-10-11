@@ -45,8 +45,11 @@
   --borda-forte: var(--cor-neutro-300);
 
   /* ---- Tipografia ---------------------------------------------------- */
-  --fonte-base: 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont,
-    'Helvetica Neue', Arial, sans-serif;
+  /* Public Sans foi desenhada para sites de governo; Bricolage Grotesque da
+     personalidade aos titulos. Ambas vem do pacote @fontsource. */
+  --fonte-base: 'Public Sans Variable', 'Segoe UI', Roboto, Arial, sans-serif;
+  --fonte-titulo: 'Bricolage Grotesque Variable', 'Public Sans Variable',
+    'Segoe UI', sans-serif;
   --fonte-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
 
   /* Escala tipografica (razao ~1.25) */
