@@ -19,31 +19,45 @@
 .formulario-busca__modos {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--espaco-2);
-  padding-bottom: var(--espaco-4);
+  gap: var(--espaco-1) var(--espaco-5);
   border-bottom: 1px solid var(--borda-padrao);
 }
 
+/* Abas sublinhadas: a ativa ganha uma barra laranja que "assenta" na linha
+   de baixo do grupo. */
 .formulario-busca__modo {
-  padding: var(--espaco-2) var(--espaco-4);
+  position: relative;
+  padding: var(--espaco-2) 0 var(--espaco-3);
   font-size: var(--texto-sm);
   font-weight: var(--peso-medio);
-  color: var(--texto-padrao);
-  background-color: var(--fundo-sutil);
-  border: 1px solid transparent;
-  border-radius: var(--raio-pill);
+  color: var(--texto-suave);
+  background: none;
+  border: none;
   cursor: pointer;
-  transition: background-color var(--transicao-rapida),
-    color var(--transicao-rapida), border-color var(--transicao-rapida);
+  transition: color var(--transicao-rapida);
+}
+
+.formulario-busca__modo::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 -1px 0;
+  height: 3px;
+  background-color: var(--cor-primaria-500);
+  transform: scaleX(0);
+  transition: transform var(--transicao-padrao);
 }
 
 .formulario-busca__modo:hover:not(:disabled) {
-  border-color: var(--cor-primaria-300);
+  color: var(--texto-forte);
 }
 
 .formulario-busca__modo[aria-selected='true'] {
-  color: var(--cor-neutro-000);
-  background-color: var(--cor-primaria-700);
+  font-weight: var(--peso-forte);
+  color: var(--texto-forte);
+}
+
+.formulario-busca__modo[aria-selected='true']::after {
+  transform: scaleX(1);
 }
 
 .formulario-busca__modo:disabled {
