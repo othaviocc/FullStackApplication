@@ -8,31 +8,40 @@
 
 :root {
   /* ---- Cores de marca ---------------------------------------------- */
-  --cor-primaria-900: #0b1f3a;
-  --cor-primaria-700: #14396b;
-  --cor-primaria-500: #1e5aa8;
-  --cor-primaria-300: #6ea3dd;
-  --cor-primaria-100: #e3edf9;
+  /* Paleta quente: laranja nas acoes, vinho no cabecalho, amarelo nos
+     destaques. O laranja 500 tem contraste 5.2:1 com texto branco (AA). */
+  --cor-primaria-900: #5c1309; /* vinho: fundo do cabecalho */
+  --cor-primaria-700: #a8320b; /* hover e itens ativos */
+  --cor-primaria-500: #c2410c; /* botoes, links, foco */
+  --cor-primaria-300: #f7a072;
+  --cor-primaria-100: #ffe8d9;
 
-  --cor-destaque-500: #c9a227; /* dourado sobrio, puxa o tom institucional */
-  --cor-destaque-100: #faf3dc;
+  --cor-destaque-500: #f5b70a; /* amarelo */
+  --cor-destaque-100: #fff4cc;
 
-  /* ---- Neutros ------------------------------------------------------ */
-  --cor-neutro-900: #10151c;
-  --cor-neutro-700: #33404f;
-  --cor-neutro-500: #64748b;
-  --cor-neutro-300: #cbd5e1;
-  --cor-neutro-200: #e2e8f0;
-  --cor-neutro-100: #f1f5f9;
+  /* Tons vivos usados so em detalhes decorativos (faixas, ilustracoes),
+     nunca atras de texto: nao tem contraste suficiente para isso. */
+  --cor-laranja-vivo: #f76707;
+  --cor-vermelho-vivo: #d9230f;
+
+  /* ---- Neutros (puxados para o quente, combinam com a paleta) -------- */
+  --cor-neutro-900: #22150f;
+  --cor-neutro-700: #4a3830;
+  --cor-neutro-500: #76625a;
+  --cor-neutro-300: #e3d3c4;
+  --cor-neutro-200: #efe3d6;
+  --cor-neutro-100: #fbf4ec;
   --cor-neutro-000: #ffffff;
 
   /* ---- Cores semanticas (estados de feedback ao usuario) ------------ */
-  --cor-erro-500: #c0392b;
-  --cor-erro-100: #fdecea;
-  --cor-sucesso-500: #1e8e5a;
-  --cor-sucesso-100: #e6f5ee;
-  --cor-alerta-500: #b7791f;
-  --cor-alerta-100: #fdf6e3;
+  /* O vermelho de erro e mais fechado que o vermelho vivo da marca e sempre
+     aparece com icone e caixa propria, para nao ser confundido com enfeite. */
+  --cor-erro-500: #b42318;
+  --cor-erro-100: #fef3f2;
+  --cor-sucesso-500: #1e7a4c;
+  --cor-sucesso-100: #e6f4ec;
+  --cor-alerta-500: #a15c07;
+  --cor-alerta-100: #fef6e0;
 
   /* ---- Papeis (o que cada cor significa na interface) ---------------- */
   --fundo-pagina: var(--cor-neutro-100);

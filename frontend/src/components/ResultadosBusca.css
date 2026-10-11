@@ -172,6 +172,6 @@
 }
 
 .selo--aposentado {
-  color: var(--cor-alerta-500);
-  background-color: var(--cor-alerta-100);
+  color: var(--cor-neutro-700);
+  background-color: var(--cor-neutro-200);
 }
