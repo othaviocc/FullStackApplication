@@ -79,11 +79,15 @@ function TabelaServidores({ registros }) {
               className="anima-surgir"
               style={{ '--atraso': `${indice * 30}ms` }}
             >
-              <td>{servidor.nome}</td>
-              <td>{servidor.cargo}</td>
-              <td>{servidor.orgao}</td>
-              <td title={servidor.uf ? undefined : UF_AUSENTE}>{servidor.uf ?? '—'}</td>
-              <td>
+              {/* data-rotulo vira o titulo de cada campo no layout de cards
+                  do celular, onde o cabecalho da tabela fica escondido. */}
+              <td className="tabela__nome" data-rotulo="Nome">{servidor.nome}</td>
+              <td data-rotulo="Cargo">{servidor.cargo}</td>
+              <td data-rotulo="Órgão">{servidor.orgao}</td>
+              <td data-rotulo="UF" title={servidor.uf ? undefined : UF_AUSENTE}>
+                {servidor.uf ?? '—'}
+              </td>
+              <td data-rotulo="Situação">
                 <SeloSituacao situacao={servidor.situacao} />
               </td>
             </tr>

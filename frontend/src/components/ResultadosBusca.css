@@ -122,10 +122,94 @@
     box-shadow var(--transicao-rapida);
 }
 
-/* No hover a linha ganha fundo pessego e um filete laranja a esquerda. */
-.tabela tbody tr:hover {
-  background-color: var(--cor-primaria-100);
-  box-shadow: inset 3px 0 0 var(--cor-primaria-500);
+/* No hover a linha ganha fundo pessego e um filete laranja a esquerda.
+   So em aparelhos com mouse: na tela de toque o hover "gruda" no ultimo
+   item tocado. */
+@media (hover: hover) {
+  .tabela tbody tr:hover {
+    background-color: var(--cor-primaria-100);
+    box-shadow: inset 3px 0 0 var(--cor-primaria-500);
+  }
+}
+
+/* ---- Tabela vira cards no celular -------------------------------------- */
+
+/* Em tela estreita uma tabela de 5 colunas so funciona rolando para o lado.
+   Aqui cada linha vira um cartao: nome em destaque, cargo e orgao com
+   rotulo, UF e situacao lado a lado no rodape do cartao. */
+@media (max-width: 640px) {
+  .tabela-rolagem {
+    overflow: visible;
+    border: none;
+  }
+
+  .tabela,
+  .tabela tbody {
+    display: block;
+  }
+
+  /* Escondido so visualmente: leitores de tela continuam lendo a tabela. */
+  .tabela thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .tabela tbody {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espaco-3);
+  }
+
+  .tabela tbody tr {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--espaco-2) var(--espaco-4);
+    padding: var(--espaco-4);
+    background-color: var(--fundo-superficie);
+    border: 1px solid var(--borda-padrao);
+    border-left: 4px solid var(--cor-primaria-500);
+    border-radius: var(--raio-md);
+  }
+
+  .tabela td {
+    grid-column: 1 / -1;
+    padding: 0;
+    border: none;
+  }
+
+  .tabela td::before {
+    content: attr(data-rotulo);
+    display: block;
+    font-size: var(--texto-xs);
+    font-weight: var(--peso-forte);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+  }
+
+  /* O nome ja e o titulo do cartao, dispensa rotulo. */
+  .tabela .tabela__nome {
+    font-family: var(--fonte-titulo);
+    font-size: var(--texto-md);
+    font-weight: var(--peso-forte);
+    color: var(--texto-forte);
+  }
+
+  .tabela .tabela__nome::before {
+    content: none;
+  }
+
+  .tabela td[data-rotulo='UF'] {
+    grid-column: 1;
+  }
+
+  .tabela td[data-rotulo='Situação'] {
+    grid-column: 2;
+    text-align: right;
+  }
 }
 
 /* ---- Ficha (resultado unico) ------------------------------------------- */
