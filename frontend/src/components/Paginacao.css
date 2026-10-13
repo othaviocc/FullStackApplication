@@ -31,9 +31,11 @@
     border-color var(--transicao-rapida);
 }
 
-.paginacao__botao:hover:not(:disabled) {
-  border-color: var(--cor-primaria-300);
-  background-color: var(--cor-primaria-100);
+@media (hover: hover) {
+  .paginacao__botao:hover:not(:disabled) {
+    border-color: var(--cor-primaria-300);
+    background-color: var(--cor-primaria-100);
+  }
 }
 
 .paginacao__botao:disabled {
@@ -58,4 +60,36 @@
   text-align: center;
   font-size: var(--texto-xs);
   color: var(--texto-suave);
+}
+
+/* No celular os numeros nao cabem em uma linha: fica so
+   "‹  Pagina 5 de 6  ›", com o resumo entre as setas. */
+@media (max-width: 480px) {
+  .paginacao {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  .paginacao__lista,
+  .paginacao__texto {
+    display: none;
+  }
+
+  .paginacao__botao {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    font-size: var(--texto-lg);
+  }
+
+  .paginacao__resumo {
+    flex-basis: auto;
+    order: 1;
+    font-size: var(--texto-sm);
+    font-weight: var(--peso-medio);
+    color: var(--texto-padrao);
+  }
+
+  .paginacao__botao:last-of-type {
+    order: 2;
+  }
 }

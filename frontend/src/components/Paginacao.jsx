@@ -43,8 +43,9 @@ export default function Paginacao({ pagina, totalPaginas, aoMudarPagina, desabil
         className="paginacao__botao"
         onClick={() => aoMudarPagina(pagina - 1)}
         disabled={desabilitado || pagina <= 1}
+        aria-label="Página anterior"
       >
-        ‹ Anterior
+        ‹<span className="paginacao__texto"> Anterior</span>
       </button>
 
       <ul className="paginacao__lista" role="list">
@@ -75,8 +76,9 @@ export default function Paginacao({ pagina, totalPaginas, aoMudarPagina, desabil
         className="paginacao__botao"
         onClick={() => aoMudarPagina(pagina + 1)}
         disabled={desabilitado || pagina >= totalPaginas}
+        aria-label="Próxima página"
       >
-        Próxima ›
+        <span className="paginacao__texto">Próxima </span>›
       </button>
 
       <p className="paginacao__resumo">

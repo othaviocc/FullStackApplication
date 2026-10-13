@@ -160,3 +160,16 @@
   justify-content: flex-end;
   gap: var(--espaco-3);
 }
+
+@media (max-width: 640px) {
+  .formulario-busca {
+    padding: var(--espaco-4);
+  }
+
+  /* Botoes dividem a largura: alvo de toque maior e alinhados ao polegar. */
+  .formulario-busca__acoes .botao {
+    flex: 1;
+    min-height: 2.75rem;
+  }
+}
+
