@@ -40,7 +40,7 @@ function FichaServidor({ servidor }) {
   ]
 
   return (
-    <article className="ficha">
+    <article className="ficha anima-surgir">
       <header className="ficha__cabecalho">
         <h3 className="ficha__nome">{servidor.nome}</h3>
         <SeloSituacao situacao={servidor.situacao} />
@@ -72,7 +72,13 @@ function TabelaServidores({ registros }) {
         </thead>
         <tbody>
           {registros.map((servidor, indice) => (
-            <tr key={servidor.chave ?? indice}>
+            /* Cada linha entra um pouco depois da anterior. Como a chave
+               muda ao trocar de pagina, a nova pagina tambem anima. */
+            <tr
+              key={servidor.chave ?? indice}
+              className="anima-surgir"
+              style={{ '--atraso': `${indice * 30}ms` }}
+            >
               <td>{servidor.nome}</td>
               <td>{servidor.cargo}</td>
               <td>{servidor.orgao}</td>
@@ -120,7 +126,7 @@ export default function ResultadosBusca({
 
   if (falhou && !temDados) {
     return (
-      <section className="resultados resultados--erro">
+      <section className="resultados resultados--erro anima-surgir">
         <AvisoErro erro={erro} aoTentarNovamente={aoTentarNovamente} />
       </section>
     )
@@ -128,7 +134,7 @@ export default function ResultadosBusca({
 
   if (!temDados || semResultados) {
     return (
-      <section className="resultados resultados--vazio" aria-live="polite">
+      <section className="resultados resultados--vazio anima-surgir" aria-live="polite">
         <p>Nenhum servidor encontrado para os filtros informados.</p>
       </section>
     )
@@ -144,7 +150,7 @@ export default function ResultadosBusca({
   }
 
   return (
-    <section ref={secaoRef} className="resultados" aria-live="polite" aria-busy={carregando}>
+    <section ref={secaoRef} className="resultados anima-surgir" aria-live="polite" aria-busy={carregando}>
       <header className="resultados__cabecalho">
         <h2>Resultados</h2>
         <span className="resultados__total">

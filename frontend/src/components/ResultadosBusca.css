@@ -66,13 +66,16 @@
   padding-top: var(--espaco-7);
 }
 
+/* Spinner com as tres cores da faixa do cabecalho. */
 .spinner {
-  width: 32px;
-  height: 32px;
-  border: 3px solid var(--cor-primaria-100);
-  border-top-color: var(--cor-primaria-500);
+  width: 36px;
+  height: 36px;
+  border: 4px solid var(--cor-primaria-100);
+  border-top-color: var(--cor-destaque-500);
+  border-right-color: var(--cor-laranja-vivo);
+  border-bottom-color: var(--cor-vermelho-vivo);
   border-radius: 50%;
-  animation: girar 0.8s linear infinite;
+  animation: girar 0.9s cubic-bezier(0.5, 0.15, 0.5, 0.85) infinite;
 }
 
 @keyframes girar {
@@ -114,8 +117,15 @@
   border-bottom: none;
 }
 
+.tabela tbody tr {
+  transition: background-color var(--transicao-rapida),
+    box-shadow var(--transicao-rapida);
+}
+
+/* No hover a linha ganha fundo pessego e um filete laranja a esquerda. */
 .tabela tbody tr:hover {
   background-color: var(--cor-primaria-100);
+  box-shadow: inset 3px 0 0 var(--cor-primaria-500);
 }
 
 /* ---- Ficha (resultado unico) ------------------------------------------- */

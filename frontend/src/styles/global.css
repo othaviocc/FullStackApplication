@@ -213,9 +213,11 @@ a {
 }
 
 /* Aplicada a qualquer bloco que deva entrar subindo. O atraso vem da
-   variavel --atraso, para escalonar varios elementos em sequencia. */
+   variavel --atraso, para escalonar varios elementos em sequencia.
+   "backwards" segura o estado inicial so durante o atraso; depois do fim
+   o elemento volta a obedecer o CSS normal (ex.: esmaecer ao carregar). */
 .anima-surgir {
-  animation: surgir var(--duracao-entrada) var(--curva-saida) both;
+  animation: surgir var(--duracao-entrada) var(--curva-saida) backwards;
   animation-delay: var(--atraso, 0ms);
 }
 
