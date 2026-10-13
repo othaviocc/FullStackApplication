@@ -21,6 +21,23 @@
     var(--cor-laranja-vivo) 33.33% 66.66%,
     var(--cor-vermelho-vivo) 66.66% 100%
   );
+  transform-origin: left;
+  animation: crescer-horizontal 900ms var(--curva-saida) 200ms both;
+}
+
+/* Textos do cabecalho entram em cascata, da esquerda. */
+.topo__sobretitulo,
+.topo h1,
+.topo__subtitulo {
+  animation: surgir-lateral 600ms var(--curva-saida) both;
+}
+
+.topo h1 {
+  animation-delay: 80ms;
+}
+
+.topo__subtitulo {
+  animation-delay: 160ms;
 }
 
 .topo h1 {

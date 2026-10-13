@@ -21,7 +21,9 @@ export default function App() {
       </header>
 
       <main className="container conteudo">
-        <FormularioBusca aoBuscar={buscar} carregando={carregando} />
+        <div className="anima-surgir" style={{ '--atraso': '250ms' }}>
+          <FormularioBusca aoBuscar={buscar} carregando={carregando} />
+        </div>
         <ResultadosBusca
           status={status}
           dados={dados}

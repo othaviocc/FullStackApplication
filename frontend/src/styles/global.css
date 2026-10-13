@@ -60,7 +60,11 @@ select {
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+    /* Sem zerar o atraso, itens com entrada escalonada ficariam invisiveis
+       ate o atraso passar. */
+    animation-delay: 0ms !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
     scroll-behavior: auto !important;
   }
 }
@@ -173,3 +177,45 @@ a {
 .botao--secundario:hover:not(:disabled) {
   background-color: var(--fundo-sutil);
 }
+
+/* ---- Animacoes de entrada --------------------------------------------- */
+
+@keyframes surgir {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes surgir-lateral {
+  from {
+    opacity: 0;
+    transform: translateX(-18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Faixa que "se desenha" da esquerda para a direita. */
+@keyframes crescer-horizontal {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Aplicada a qualquer bloco que deva entrar subindo. O atraso vem da
+   variavel --atraso, para escalonar varios elementos em sequencia. */
+.anima-surgir {
+  animation: surgir var(--duracao-entrada) var(--curva-saida) both;
+  animation-delay: var(--atraso, 0ms);
+}
+

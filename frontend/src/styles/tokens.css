@@ -105,4 +105,8 @@
   /* ---- Movimento ----------------------------------------------------- */
   --transicao-rapida: 120ms ease;
   --transicao-padrao: 200ms ease;
+
+  /* Sai rapido e assenta devagar: da sensacao de peso sem parecer lento. */
+  --curva-saida: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --duracao-entrada: 480ms;
 }
