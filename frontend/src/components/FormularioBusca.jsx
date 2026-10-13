@@ -8,7 +8,7 @@
  * o componente pai.
  */
 
-import { useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { LIMITE_MAXIMO, UFS_VALIDAS, validarFiltros } from '../api/client.js'
 import './FormularioBusca.css'
 
@@ -45,6 +45,35 @@ export default function FormularioBusca({ aoBuscar, carregando = false }) {
   const [modo, setModo] = useState('nome')
   const [valores, setValores] = useState(VALORES_INICIAIS)
   const [erros, setErros] = useState({})
+
+  /* Posicao da barra que desliza sob a aba ativa. */
+  const abasRef = useRef(null)
+  const [indicador, setIndicador] = useState(null)
+
+  /* useLayoutEffect mede antes da pintura: a barra nunca aparece um quadro
+     no lugar errado. Remede quando a janela muda (as fontes podem trocar a
+     largura das abas) e rola a aba ativa para dentro da vista no celular. */
+  useLayoutEffect(() => {
+    const lista = abasRef.current
+    if (!lista) return undefined
+
+    function medir() {
+      const ativa = lista.querySelector('[aria-selected="true"]')
+      if (!ativa) return
+      setIndicador({ esquerda: ativa.offsetLeft, largura: ativa.offsetWidth })
+
+      const fimAtiva = ativa.offsetLeft + ativa.offsetWidth
+      if (ativa.offsetLeft < lista.scrollLeft || fimAtiva > lista.scrollLeft + lista.clientWidth) {
+        lista.scrollTo({ left: ativa.offsetLeft - 16, behavior: 'smooth' })
+      }
+    }
+
+    medir()
+    document.fonts?.ready.then(medir)
+    const observador = new ResizeObserver(medir)
+    observador.observe(lista)
+    return () => observador.disconnect()
+  }, [modo])
 
   const camposVisiveis = MODOS.find((m) => m.id === modo).campos
 
@@ -176,7 +205,12 @@ export default function FormularioBusca({ aoBuscar, carregando = false }) {
 
   return (
     <form className="formulario-busca" onSubmit={enviar} noValidate>
-      <div className="formulario-busca__modos" role="tablist" aria-label="Tipo de busca">
+      <div
+        ref={abasRef}
+        className="formulario-busca__modos"
+        role="tablist"
+        aria-label="Tipo de busca"
+      >
         {MODOS.map((m) => (
           <button
             key={m.id}
@@ -190,6 +224,16 @@ export default function FormularioBusca({ aoBuscar, carregando = false }) {
             {m.rotulo}
           </button>
         ))}
+        {indicador && (
+          <span
+            className="formulario-busca__indicador"
+            aria-hidden="true"
+            style={{
+              transform: `translateX(${indicador.esquerda}px)`,
+              width: `${indicador.largura}px`
+            }}
+          />
+        )}
       </div>
 
       {modo === 'combinada' && (

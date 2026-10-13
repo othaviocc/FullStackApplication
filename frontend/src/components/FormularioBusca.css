@@ -17,19 +17,25 @@
 /* ---- Abas de modo ------------------------------------------------------ */
 
 .formulario-busca__modos {
+  position: relative;
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--espaco-1) var(--espaco-5);
+  gap: var(--espaco-5);
+  /* Uma linha so; se nao couber (celular), rola para o lado. */
+  overflow-x: auto;
+  scrollbar-width: none;
   border-bottom: 1px solid var(--borda-padrao);
 }
 
-/* Abas sublinhadas: a ativa ganha uma barra laranja que "assenta" na linha
-   de baixo do grupo. */
+.formulario-busca__modos::-webkit-scrollbar {
+  display: none;
+}
+
 .formulario-busca__modo {
-  position: relative;
+  flex-shrink: 0;
   padding: var(--espaco-2) 0 var(--espaco-3);
   font-size: var(--texto-sm);
   font-weight: var(--peso-medio);
+  white-space: nowrap;
   color: var(--texto-suave);
   background: none;
   border: none;
@@ -37,14 +43,15 @@
   transition: color var(--transicao-rapida);
 }
 
-.formulario-busca__modo::after {
-  content: '';
+/* Barra unica que desliza ate a aba ativa (posicao calculada no JSX). */
+.formulario-busca__indicador {
   position: absolute;
-  inset: auto 0 -1px 0;
+  left: 0;
+  bottom: 0;
   height: 3px;
   background-color: var(--cor-primaria-500);
-  transform: scaleX(0);
-  transition: transform var(--transicao-padrao);
+  transition: transform 320ms var(--curva-saida), width 320ms var(--curva-saida);
+  pointer-events: none;
 }
 
 .formulario-busca__modo:hover:not(:disabled) {
@@ -54,10 +61,6 @@
 .formulario-busca__modo[aria-selected='true'] {
   font-weight: var(--peso-forte);
   color: var(--texto-forte);
-}
-
-.formulario-busca__modo[aria-selected='true']::after {
-  transform: scaleX(1);
 }
 
 .formulario-busca__modo:disabled {
