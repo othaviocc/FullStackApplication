@@ -28,6 +28,7 @@ CREATE INDEX IF NOT EXISTS idx_ativos_nome_trgm
 -- ------------------------------------------------------------
 -- Tabela: aposentados (dataset APOSENTADOS_082026.csv)
 -- CSV original sem cabeçalho; UF não existe nesse dataset.
+
 -- ------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS aposentados (
     id                      SERIAL PRIMARY KEY,
