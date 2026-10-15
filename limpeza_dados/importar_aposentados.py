@@ -21,9 +21,9 @@ DB_CONFIG = {
     "port": os.getenv("DB_PORT", "5432"),
     "dbname": os.getenv("DB_NAME", "servidores_db"),
     "user": os.getenv("DB_USER", "postgres"),
-    "password": os.getenv("DB_PASSWORD", "estudo123"),
+    "password": os.getenv("DB_PASS", "estudo123"),
 }
-
+print(os.getenv("DB_PASS", "estudo123"))
 APOSENTADOS_CSV = os.getenv("APOSENTADOS_CSV", "../db/APOSENTADOS_082026.csv")
 LIMITE_LINHAS_TESTE = None  # None = importa tudo
 CHUNKSIZE = 50_000
