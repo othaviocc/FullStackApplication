@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   db-server:
-    image: postgres:15-alpine
+    build:
+      context: ./db
+      dockerfile: Dockerfile
     container_name: db-server
     restart: always
     environment:
