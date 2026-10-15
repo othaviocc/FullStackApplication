@@ -28,7 +28,9 @@ COPY --from=build /app/dist /usr/share/nginx/html
 
 EXPOSE 3000
 
+# 127.0.0.1 e nao "localhost": no Alpine localhost resolve primeiro para o
+# IPv6 (::1), onde o nginx nao escuta, e o container ficava "unhealthy".
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD wget --quiet --tries=1 --spider http://localhost:3000/ || exit 1
+    CMD wget --quiet --tries=1 --spider http://127.0.0.1:3000/ || exit 1
 
 CMD ["nginx", "-g", "daemon off;"]
