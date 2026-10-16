@@ -1,0 +1,6 @@
+# Usado so pelo build do servico "importador" (contexto = raiz do projeto).
+# Envia apenas os scripts de importacao e os CSVs, nao o projeto inteiro.
+*
+!limpeza_dados/*.py
+!limpeza_dados/requirements.txt
+!db/*.csv
