@@ -23,7 +23,6 @@ DB_CONFIG = {
     "user": os.getenv("DB_USER", "postgres"),
     "password": os.getenv("DB_PASS", "estudo123"),
 }
-print(os.getenv("DB_PASS", "estudo123"))
 APOSENTADOS_CSV = os.getenv("APOSENTADOS_CSV", "../db/APOSENTADOS_082026.csv")
 LIMITE_LINHAS_TESTE = None  # None = importa tudo
 CHUNKSIZE = 50_000
