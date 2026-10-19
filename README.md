@@ -34,10 +34,47 @@ O sistema permite consultar registros de servidores públicos federais por **nom
 
 ```
 projeto/
-├── docker.yml
+├── docker-compose.yml
 ├── README.md
 ├── backend/
-├── frontend/
+│   ├── backend.py
+│   ├── database.py
+│   ├── Dockerfile
+│   └── requirements.txt
 ├── db/
-└── docs/
+│   ├── APOSENTADOS_082026.csv
+│   ├── Dockerfile
+│   └── init.sql
+├── docs/
+├── frontend/
+│   ├── Dockerfile
+│   ├── index.html
+│   ├── nginx.conf
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── vite.config.js
+│   └── src/
+│       ├── App.css
+│       ├── App.jsx
+│       ├── main.jsx
+│       ├── api/
+│       │   ├── client.js
+│       │   └── mock.js
+│       ├── components/
+│       │   ├── AvisoErro.jsx
+│       │   ├── FormularioBusca.jsx
+│       │   ├── Paginacao.jsx
+│       │   └── ResultadosBusca.jsx
+│       ├── hooks/
+│       │   └── useBuscaServidores.js
+│       └── styles/
+│           ├── global.css
+│           └── tokens.css
+└── limpeza_dados/
+    ├── carga_inicial.py
+    ├── Dockerfile
+    ├── importar_aposentados.py
+    ├── importar_dados.py
+    ├── relatando_limpeza.txt
+    └── requirements.txt
 ```
